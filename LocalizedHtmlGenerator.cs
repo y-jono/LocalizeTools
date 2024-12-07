@@ -74,12 +74,13 @@ public class LocalizedHtmlGenerator
     /// <summary>
     /// ローカライズされた HTML ファイルを生成します。
     /// </summary>
+    /// <param name="outputDirectory">出力する ディレクトリ名</param>
     /// <param name="outputBaseName">出力する HTML ファイルのベース名</param>
     /// <param name="cultureName">生成する言語（カルチャ）の名前（例: "English"）</param>
     /// <param name="templatePath">テンプレート HTML ファイルのパス</param>
     /// <param name="excelPath">リソースが記載された Excel ファイルのパス</param>
     /// <returns>生成された HTML ファイルのパス</returns>
-    public string GenerateHtml(string outputBaseName, string cultureName, string templatePath, string excelPath)
+    public string GenerateHtml(string outputDirectory, string outputBaseName, string cultureName, string templatePath, string excelPath)
     {
         Console.WriteLine("GenerateHtml メソッドを開始します。");
         Console.WriteLine($"カルチャ: {cultureName}, テンプレートのパス: {templatePath}, Excel のパス: {excelPath}");
@@ -136,7 +137,7 @@ public class LocalizedHtmlGenerator
         }
 
         // テンプレート HTML ファイルを読み込み、プレースホルダーをリソースで置換します。
-        string outputHtmlPath = Path.Combine(Path.GetDirectoryName(templatePath), $"{outputBaseName}_{cultureName}.html");
+        string outputHtmlPath = Path.Combine(outputDirectory, $"{outputBaseName}_{cultureName}.html");
         using (FileStream inputFs = new FileStream(templatePath, FileMode.Open, FileAccess.Read))
         using (StreamReader templateReader = new StreamReader(inputFs))
         using (FileStream outputFs = new FileStream(outputHtmlPath, FileMode.Create, FileAccess.Write))
